@@ -1,0 +1,35 @@
+# Android开发依赖
+# 核心依赖
+androidx.core:core-ktx:1.12.0
+androidx.lifecycle:lifecycle-runtime-ktx:2.7.0
+androidx.activity:activity-compose:1.8.2
+
+# Compose依赖
+androidx.compose.ui:ui:1.6.1
+androidx.compose.ui:ui-graphics:1.6.1
+androidx.compose.ui:ui-tooling-preview:1.6.1
+androidx.compose.material3:material3:1.2.0
+androidx.compose.material:material-icons-extended:1.6.1
+
+# 架构组件
+androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0
+androidx.navigation:navigation-compose:2.7.6
+
+# 数据库
+androidx.room:room-runtime:2.6.1
+androidx.room:room-ktx:2.6.1
+kapt "androidx.room:room-compiler:2.6.1"
+
+# 依赖注入
+com.google.dagger:hilt-android:2.50
+kapt "com.google.dagger:hilt-compiler:2.50"
+androidx.hilt:hilt-navigation-compose:1.1.0
+
+# 图表库
+com.github.PhilJay:MPAndroidChart:v3.1.0
+
+# 测试依赖
+junit:junit:4.13.2
+androidx.test.ext:junit:1.1.5
+androidx.test.espresso:espresso-core:3.5.1
+androidx.compose.ui:ui-test-junit4:1.6.1

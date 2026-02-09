@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">36个10天周期追踪器</string>
+    <string name="default_notification_channel_id">ten_day_tracker_default</string>
+    
+    <!-- 通用 -->
+    <string name="loading">加载中...</string>
+    <string name="error">错误</string>
+    <string name="retry">重试</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="delete">删除</string>
+    <string name="edit">编辑</string>
+    <string name="add">添加</string>
+    <string name="confirm">确认</string>
+    <string name="back">返回</string>
+    <string name="next">下一步</string>
+    <string name="previous">上一步</string>
+    
+    <!-- 仪表板 -->
+    <string name="dashboard_title">36个10天周期追踪器</string>
+    <string name="current_period">当前周期</string>
+    <string name="period_stats">年度统计</string>
+    <string name="all_periods">所有周期</string>
+    <string name="view_details">查看详情</string>
+    <string name="refresh">刷新</string>
+    <string name="settings">设置</string>
+    
+    <!-- 周期状态 -->
+    <string name="status_upcoming">即将开始</string>
+    <string name="status_in_progress">进行中</string>
+    <string name="status_completed">已完成</string>
+    <string name="status_skipped">已跳过</string>
+    
+    <!-- 统计 -->
+    <string name="total_periods">总周期</string>
+    <string name="completed_periods">已完成</string>
+    <string name="in_progress_periods">进行中</string>
+    <string name="completion_rate">完成率</string>
+    <string name="remaining_days">剩余天数</string>
+    <string name="progress">进度</string>
+    <string name="days_passed">已过天数</string>
+    
+    <!-- 周期详情 -->
+    <string name="period_detail">周期详情</string>
+    <string name="period_goals">周期目标</string>
+    <string name="period_results">周期结果</string>
+    <string name="daily_records">每日记录</string>
+    <string name="add_goal">添加目标</string>
+    <string name="record_result">记录结果</string>
+    <string name="edit_record">编辑记录</string>
+    <string name="no_record">未记录</string>
+    
+    <!-- 目标 -->
+    <string name="goal_content">目标内容</string>
+    <string name="goal_type">目标类型</string>
+    <string name="goal_priority">优先级</string>
+    <string name="priority_high">高</string>
+    <string name="priority_medium">中</string>
+    <string name="priority_low">低</string>
+    
+    <!-- 结果 -->
+    <string name="result_summary">结果总结</string>
+    <string name="completion_rate_percent">完成度</string>
+    <string name="achievements">关键成就</string>
+    <string name="challenges">遇到的挑战</string>
+    <string name="lessons">学到的经验</string>
+    <string name="next_steps">下一步计划</string>
+    <string name="self_rating">自我评分</string>
+    
+    <!-- 每日记录 -->
+    <string name="day_number">第%s天</string>
+    <string name="daily_summary">今日总结</string>
+    <string name="completed_tasks">完成的任务</string>
+    <string name="mood_rating">心情评分</string>
+    <string name="energy_level">能量水平</string>
+    <string name="notes">备注</string>
+    
+    <!-- 设置 -->
+    <string name="settings_title">设置</string>
+    <string name="notification_settings">通知设置</string>
+    <string name="enable_notifications">启用通知</string>
+    <string name="daily_reminders">每日提醒</string>
+    <string name="appearance">外观</string>
+    <string name="dark_mode">深色模式</string>
+    <string name="data_management">数据管理</string>
+    <string name="auto_backup">自动备份</string>
+    <string name="export_data">导出数据</string>
+    <string name="import_data">导入数据</string>
+    <string name="security">安全</string>
+    <string name="app_lock">应用锁</string>
+    <string name="about">关于</string>
+    <string name="version">版本</string>
+    <string name="check_updates">检查更新</string>
+    <string name="feedback">反馈建议</string>
+    <string name="danger_zone">危险区域</string>
+    <string name="clear_all_data">清除所有数据</string>
+    <string name="reset_app">重置应用</string>
+    
+    <!-- 错误消息 -->
+    <string name="error_load_periods">加载周期数据失败</string>
+    <string name="error_save_data">保存数据失败</string>
+    <string name="error_network">网络连接失败</string>
+    <string name="error_unknown">未知错误</string>
+    
+    <!-- 成功消息 -->
+    <string name="success_save">保存成功</string>
+    <string name="success_delete">删除成功</string>
+    <string name="success_export">导出成功</string>
+    
+    <!-- 提示 -->
+    <string name="hint_goal_content">请输入目标内容</string>
+    <string name="hint_result_summary">请输入结果总结</string>
+    <string name="hint_daily_summary">请输入今日总结</string>
+    <string name="hint_notes">请输入备注</string>
+    
+    <!-- 确认对话框 -->
+    <string name="confirm_delete">确认删除？</string>
+    <string name="confirm_clear_data">确认清除所有数据？此操作不可撤销。</string>
+    <string name="confirm_reset_app">确认重置应用？所有设置将恢复默认值。</string>
+    
+    <!-- 通知 -->
+    <string name="notification_channel_name">周期提醒</string>
+    <string name="notification_channel_description">接收周期开始、结束和每日提醒</string>
+    <string name="notification_period_start_title">新的10天周期开始了！</string>
+    <string name="notification_period_start_content">第%s个10天周期已经开始，请设定您的目标。</string>
+    <string name="notification_period_end_title">10天周期即将结束</string>
+    <string name="notification_period_end_content">第%s个10天周期还有1天结束，请记录您的成果。</string>
+    <string name="notification_daily_reminder_title">今日记录提醒</string>
+    <string name="notification_daily_reminder_content">别忘了记录今天的进度和心情。</string>
+</resources>
