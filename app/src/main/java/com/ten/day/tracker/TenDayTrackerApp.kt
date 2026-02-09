@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ten.day.tracker.ui.screens.comparison.DayComparisonScreen
 import com.ten.day.tracker.ui.screens.dashboard.DashboardScreen
 import com.ten.day.tracker.ui.screens.period.PeriodDetailScreen
 import com.ten.day.tracker.ui.screens.settings.SettingsScreen
@@ -21,6 +22,9 @@ fun TenDayTrackerApp() {
                 onPeriodClick = { periodId ->
                     navController.navigate("period/$periodId")
                 },
+                onComparisonClick = {
+                    navController.navigate("comparison")
+                },
                 onSettingsClick = {
                     navController.navigate("settings")
                 }
@@ -31,6 +35,12 @@ fun TenDayTrackerApp() {
             val periodId = backStackEntry.arguments?.getString("periodId")?.toIntOrNull() ?: 0
             PeriodDetailScreen(
                 periodId = periodId,
+                onBack = { navController.popBackStack() }
+            )
+        }
+        
+        composable("comparison") {
+            DayComparisonScreen(
                 onBack = { navController.popBackStack() }
             )
         }

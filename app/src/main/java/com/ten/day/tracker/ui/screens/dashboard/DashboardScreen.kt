@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CompareArrows
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
@@ -25,6 +26,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun DashboardScreen(
     onPeriodClick: (Int) -> Unit,
+    onComparisonClick: () -> Unit,
     onSettingsClick: () -> Unit,
     viewModel: PeriodViewModel = hiltViewModel()
 ) {
@@ -44,6 +46,9 @@ fun DashboardScreen(
                     )
                 },
                 actions = {
+                    IconButton(onClick = onComparisonClick) {
+                        Icon(Icons.Default.CompareArrows, contentDescription = "天数对比")
+                    }
                     IconButton(onClick = { viewModel.refreshData() }) {
                         Icon(Icons.Default.Refresh, contentDescription = "刷新")
                     }
