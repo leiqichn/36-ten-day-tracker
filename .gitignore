@@ -171,3 +171,7 @@ captures/
 *.db.room.schema.docx
 *.db.room.schema.odt
 *.db.room.schema.rtf
+# GitHub Actions缓存
+.gradle/
+build/
+app/build/
