@@ -23,16 +23,42 @@ jobs:
       
     - name: Build project
       run: |
-        echo "开始构建..."
-        chmod +x gradlew 2>/dev/null || true
-        ./gradlew clean assembleDebug --stacktrace || echo "构建失败，检查配置"
+        echo "=== 开始Android构建 ==="
+        echo "项目目录: $(pwd)"
+        echo "Gradle wrapper: $(ls -la gradlew 2>/dev/null || echo '未找到gradlew')"
+        
+        # 确保gradlew可执行
+        if [ -f "gradlew" ]; then
+          chmod +x gradlew
+          echo "使用 ./gradlew 构建..."
+          ./gradlew clean assembleDebug --stacktrace --no-daemon
+        else
+          echo "未找到gradlew，使用系统gradle..."
+          gradle clean assembleDebug --stacktrace --no-daemon
+        fi
+        
+        echo "=== 构建完成 ==="
         
     - name: Check for APK files
       run: |
-        echo "查找APK文件..."
-        find . -name "*.apk" -type f 2>/dev/null | xargs ls -la 2>/dev/null || echo "未找到APK文件"
-        echo "APK文件位置:"
-        find . -path "*/build/outputs/apk/*" -name "*.apk" -type f 2>/dev/null || echo "未在标准位置找到APK"
+        echo "=== 查找所有APK文件 ==="
+        find . -name "*.apk" -type f 2>/dev/null | xargs -I {} sh -c 'echo "APK: {} ($(du -h {} | cut -f1))"' || echo "未找到APK文件"
+        
+        echo ""
+        echo "=== 检查构建输出目录 ==="
+        find . -type d -name "outputs" 2>/dev/null | while read dir; do
+          echo "输出目录: $dir"
+          find "$dir" -type f -name "*.apk" -o -name "*.aab" 2>/dev/null | head -5
+        done || echo "未找到输出目录"
+        
+        echo ""
+        echo "=== 标准Android构建路径 ==="
+        if [ -d "app/build/outputs/apk" ]; then
+          echo "找到标准APK目录:"
+          ls -la app/build/outputs/apk/*/ 2>/dev/null | head -10 || echo "目录为空"
+        else
+          echo "未找到标准APK目录"
+        fi
         
     - name: Upload artifacts
       if: always()
@@ -40,6 +66,7 @@ jobs:
       with:
         name: build-artifacts
         path: |
-          app/build/outputs/apk/**/*.apk
-          app/build/outputs/bundle/**/*.aab
+          **/build/outputs/apk/**/*.apk
+          **/build/outputs/bundle/**/*.aab
+        if-no-files-found: warn
         retention-days: 5
