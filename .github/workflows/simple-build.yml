@@ -42,33 +42,61 @@ jobs:
         echo "=== 构建完成 ==="
         
     - name: Check for APK files
+      id: find-apk
       run: |
         echo "=== 查找所有APK文件 ==="
-        find . -name "*.apk" -type f 2>/dev/null | xargs -I {} sh -c 'echo "APK: {} ($(du -h {} | cut -f1))"' || echo "未找到APK文件"
+        APK_FILES=$(find . -name "*.apk" -type f 2>/dev/null)
         
-        echo ""
-        echo "=== 检查构建输出目录 ==="
-        find . -type d -name "outputs" 2>/dev/null | while read dir; do
-          echo "输出目录: $dir"
-          find "$dir" -type f -name "*.apk" -o -name "*.aab" 2>/dev/null | head -5
-        done || echo "未找到输出目录"
-        
-        echo ""
-        echo "=== 标准Android构建路径 ==="
-        if [ -d "app/build/outputs/apk" ]; then
-          echo "找到标准APK目录:"
-          ls -la app/build/outputs/apk/*/ 2>/dev/null | head -10 || echo "目录为空"
+        if [ -n "$APK_FILES" ]; then
+          echo "找到APK文件:"
+          echo "$APK_FILES" | xargs -I {} sh -c 'echo "  - {} ($(du -h {} | cut -f1))"'
+          
+          # 保存第一个APK文件的路径
+          FIRST_APK=$(echo "$APK_FILES" | head -1)
+          echo "first_apk=$FIRST_APK" >> $GITHUB_OUTPUT
+          
+          # 保存APK目录
+          APK_DIR=$(dirname "$FIRST_APK")
+          echo "apk_dir=$APK_DIR" >> $GITHUB_OUTPUT
         else
-          echo "未找到标准APK目录"
+          echo "未找到APK文件"
+          echo "first_apk=" >> $GITHUB_OUTPUT
+          echo "apk_dir=" >> $GITHUB_OUTPUT
         fi
         
+        echo ""
+        echo "=== 详细目录结构 ==="
+        find . -type d -name "build" 2>/dev/null | while read dir; do
+          echo "构建目录: $dir"
+          find "$dir" -type f -name "*.apk" -o -name "*.aab" 2>/dev/null | head -3
+        done || echo "未找到构建目录"
+        
+    - name: Upload APK files
+      if: always()
+      run: |
+        echo "=== 上传APK文件 ==="
+        # 查找所有APK文件
+        APK_FILES=$(find . -name "*.apk" -type f 2>/dev/null)
+        
+        if [ -n "$APK_FILES" ]; then
+          echo "找到APK文件，准备上传:"
+          mkdir -p upload-apks
+          echo "$APK_FILES" | while read apk; do
+            echo "复制: $apk"
+            cp "$apk" upload-apks/
+          done
+          
+          echo "APK文件已复制到 upload-apks/ 目录"
+          ls -la upload-apks/
+        else
+          echo "未找到APK文件，无法上传"
+        fi
+    
     - name: Upload artifacts
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: build-artifacts
-        path: |
-          **/build/outputs/apk/**/*.apk
-          **/build/outputs/bundle/**/*.aab
+        path: upload-apks/
         if-no-files-found: warn
         retention-days: 5
