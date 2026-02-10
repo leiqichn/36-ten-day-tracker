@@ -24,13 +24,15 @@ jobs:
     - name: Build project
       run: |
         echo "开始构建..."
-        gradle tasks || echo "Gradle tasks failed"
-        gradle assembleDebug || echo "Build failed, check configuration"
+        chmod +x gradlew 2>/dev/null || true
+        ./gradlew clean assembleDebug --stacktrace || echo "构建失败，检查配置"
         
     - name: Check for APK files
       run: |
         echo "查找APK文件..."
-        find . -name "*.apk" -type f 2>/dev/null || echo "未找到APK文件"
+        find . -name "*.apk" -type f 2>/dev/null | xargs ls -la 2>/dev/null || echo "未找到APK文件"
+        echo "APK文件位置:"
+        find . -path "*/build/outputs/apk/*" -name "*.apk" -type f 2>/dev/null || echo "未在标准位置找到APK"
         
     - name: Upload artifacts
       if: always()
@@ -38,5 +40,6 @@ jobs:
       with:
         name: build-artifacts
         path: |
-          app/build/outputs/
+          app/build/outputs/apk/**/*.apk
+          app/build/outputs/bundle/**/*.aab
         retention-days: 5
