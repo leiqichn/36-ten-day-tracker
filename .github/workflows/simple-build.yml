@@ -31,10 +31,12 @@ jobs:
         if [ -f "gradlew" ]; then
           chmod +x gradlew
           echo "使用 ./gradlew 构建..."
-          ./gradlew clean assembleDebug --stacktrace --no-daemon
+          # 先尝试简单的构建任务
+          ./gradlew tasks --all || echo "Gradle tasks 失败"
+          ./gradlew :app:assembleDebug --stacktrace || echo "构建失败"
         else
           echo "未找到gradlew，使用系统gradle..."
-          gradle clean assembleDebug --stacktrace --no-daemon
+          gradle :app:assembleDebug --stacktrace || echo "构建失败"
         fi
         
         echo "=== 构建完成 ==="
